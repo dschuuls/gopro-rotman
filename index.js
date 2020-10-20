@@ -19,7 +19,11 @@ let btDevice;
 let rotCharacteristic;
 let textEncoder = new TextEncoder();
 
+let speedLabel = document.getElementById("speedLabel");
+let speedSlider = document.getElementById("speedSlider");
+
 connectButton.addEventListener('pointerup', connectButtonPointerUpHandler);
+speedSlider.addEventListener("input", speedSliderInputHandler, false);
 
 function connectButtonPointerUpHandler() {
   navigator.bluetooth.requestDevice({
@@ -71,5 +75,9 @@ function directionButtonClickHandler(event) {
 }
 
 function setSpeedButtonClickHandler(event) {
-  return rotCharacteristic.writeValue(textEncoder.encode('spd:0.25'));
+  return rotCharacteristic.writeValue(textEncoder.encode('spd:' + speedSlider.value));
+}
+
+function speedSliderInputHandler() {
+  speedLabel.innerHTML = speedSlider.value;
 }
