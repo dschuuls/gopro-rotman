@@ -2,7 +2,7 @@ if (!navigator.bluetooth) {
   alert('Sorry, your browser doesn\'t support the Bluetooth API.');
 }
 
-const BT_DEVICE_NAME = 'CC41-A';
+const BT_DEVICE_NAME = 'ROT.MAN';
 
 const SEND_SERVICE = 0xFFE0;
 const SEND_SERVICE_CHARACTERISTIC = 0xFFE1;
@@ -11,19 +11,19 @@ const controlButtonsListElements = document.querySelectorAll('.control-buttons >
 
 const connectButton = document.getElementById('btnConnect');
 const disconnectButton = document.getElementById('btnDisconnect');
-const setSpeedButton = document.getElementById('btnSetSpeed');
-const rotateLeftButton = document.getElementById('btnRotateLeft');
-const rotateRightButton = document.getElementById('btnRotateRight');
+const rotateCcwButton = document.getElementById('btnRotateCcw');
+const rotateCwButton = document.getElementById('btnRotateCw');
+const stopRotatingButton = document.getElementById('btnStopRotating');
 
 let btDevice;
 let rotCharacteristic;
 let textEncoder = new TextEncoder();
 
-let speedLabel = document.getElementById("speedLabel");
-let speedSlider = document.getElementById("speedSlider");
+let minutesLabel = document.getElementById("minutesLabel");
+let minutesSlider = document.getElementById("minutesSlider");
 
 connectButton.addEventListener('pointerup', connectButtonPointerUpHandler);
-speedSlider.addEventListener("input", speedSliderInputHandler, false);
+minutesSlider.addEventListener("input", minutesSliderInputHandler, false);
 
 function connectButtonPointerUpHandler() {
   navigator.bluetooth.requestDevice({
@@ -57,9 +57,13 @@ function toggleButtonsVisible() {
 
 function toggleEventListeners(action) {
   disconnectButton[action]('click', disconnectButtonClickHandler);
-  rotateLeftButton[action]('click', directionButtonClickHandler);
-  rotateRightButton[action]('click', directionButtonClickHandler);
-  setSpeedButton[action]('click', setSpeedButtonClickHandler);
+  rotateCcwButton[action]('click', directionButtonClickHandler);
+  rotateCwButton[action]('click', directionButtonClickHandler);
+  stopRotatingButton[action]('click', stopRotatingButtonClickHandler);
+}
+
+function minutesSliderInputHandler() {
+  minutesLabel.innerHTML = minutesSlider.value;
 }
 
 function disconnectButtonClickHandler() {
@@ -71,13 +75,9 @@ function disconnectButtonClickHandler() {
 }
 
 function directionButtonClickHandler(event) {
-  return rotCharacteristic.writeValue(textEncoder.encode('dir:' + event.target.dataset.dir));
+  return rotCharacteristic.writeValue(textEncoder.encode(`start:cw=${event.target.dataset.cw};mins=${minutesSlider.value}`));
 }
 
-function setSpeedButtonClickHandler(event) {
-  return rotCharacteristic.writeValue(textEncoder.encode('spd:' + speedSlider.value));
-}
-
-function speedSliderInputHandler() {
-  speedLabel.innerHTML = speedSlider.value;
+function stopRotatingButtonClickHandler() {
+  return rotCharacteristic.writeValue(textEncoder.encode('stop'));
 }

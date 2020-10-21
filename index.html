@@ -1,39 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta content="width=device-width,minimum-scale=1,initial-scale=1" name="viewport">
     <title>rot.man</title>
     <link rel="stylesheet" href="./common.css">
-</head>
-<body>
-<header>
-    <h1>rot.man control panel</h1>
-</header>
-<main>
-    <ul class="control-buttons">
+    <link rel="manifest" href="./manifest.json">
+  </head>
+  <body>
+    <header>
+      <h1>rot.man control panel</h1>
+    </header>
+    <main>
+      <ul class="control-buttons">
         <li class="visible">
-            <button id="btnConnect">connect</button>
+          <button id="btnConnect">connect</button>
         </li>
         <li>
-            <button id="btnDisconnect">disconnect</button>
+          <button id="btnDisconnect">disconnect</button>
         </li>
         <li>
-          <label for="speedSlider" id="speedLabel">0</label>
+          <label for="minutesSlider" id="minutesLabel">1</label>
           <br>
-          <input type="range" id="speedSlider" min="0" max="300" value="0">
+          <input type="range" id="minutesSlider" min="1" max="300" value="1">
         </li>
         <li>
-            <button id="btnSetSpeed">set speed</button>
+          <button id="btnRotateCw" data-cw="1">rotate cw</button>
         </li>
         <li>
-            <button id="btnRotateLeft" data-dir="ccw">rotate left</button>
+          <button id="btnRotateCcw" data-cw="0">rotate ccw</button>
         </li>
         <li>
-            <button id="btnRotateRight" data-dir="cw">rotate right</button>
+          <button id="btnStopRotating">stop rotating</button>
         </li>
-    </ul>
-</main>
-<script src="./index.js"></script>
-</body>
+      </ul>
+    </main>
+    <script src="./main.js"></script>
+    <script>
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js')
+          .then(function() { console.log("Service worker registered"); });
+      }
+    </script>
+  </body>
 </html>
