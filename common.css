@@ -226,3 +226,7 @@ h1 {
   color: #fff;
   background: #09c2c3;
 }
+
+input[type=range] {
+  background: white;
+}
