@@ -19,11 +19,11 @@ let btDevice;
 let rotCharacteristic;
 let textEncoder = new TextEncoder();
 
-let minutesLabel = document.getElementById("minutesLabel");
-let minutesSlider = document.getElementById("minutesSlider");
+let minutesLabel = document.getElementById('minutesLabel');
+let minutesSlider = document.getElementById('minutesSlider');
 
 connectButton.addEventListener('pointerup', connectButtonPointerUpHandler);
-minutesSlider.addEventListener("input", minutesSliderInputHandler, false);
+minutesSlider.addEventListener('input', minutesSliderInputHandler, false);
 
 function connectButtonPointerUpHandler() {
   navigator.bluetooth.requestDevice({
