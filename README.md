@@ -1,7 +1,7 @@
 # rot.man stepper motor control
 This is rot.man. It combines a Progressive Web App (PWA) and an Arduino to control a stepper motor wireless over Bluetooth. Why? Because it's nice to have a rotating GoPro mount to shoot a range of timelapse photos. Bonus: The PWA can run on a smartphone and control the motor even when the phone is offline.
 
-![](screenshot.png)
+![](screenshot1.png)
 
 The slider configures the rotation speed: 1 is for 1 minute to rotate 360 degrees, 60 would take an hour. rot.man can rotate clockwise and counterclockwise.
 
@@ -35,6 +35,8 @@ The slider configures the rotation speed: 1 is for 1 minute to rotate 360 degree
 - Launch a browser that supports PWAs and navigate to the PWA
 - You may add the PWA to the home screen of your phone at this point
 - Hit the connect button to find the rot.man device and pair it ...
+
+![](screenshot2.png)
 
 ## Further remarks
 - There will be a Dockerfile soon to run the PWA containerized
